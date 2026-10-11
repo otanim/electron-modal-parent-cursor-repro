@@ -22,7 +22,9 @@ npm start
 
 ## Screencast
 
-[media/screencast.mp4](media/screencast.mp4): Ubuntu 22.04.5, GNOME Shell 42.9, X11, Electron 43.7.3.
+Ubuntu 22.04.5, GNOME Shell 42.9, X11, Electron 43.7.3:
+
+SCREENCAST_PLACEHOLDER
 
 ## Versions
 
