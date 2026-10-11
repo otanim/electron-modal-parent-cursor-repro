@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Modal cursor repro</title>
+    <style>
+      body { margin: 0; height: 100vh; font: 15px system-ui, sans-serif; color: #eee; box-sizing: border-box; padding: 20px; }
+      body.parent { background: #24324a; }
+      body.child { background: #4a2626; display: grid; grid-template-rows: auto 1fr 1fr 1fr auto; gap: 10px; }
+      .zone { display: flex; align-items: center; justify-content: center; border: 2px dashed #fff8; font-size: 18px; }
+      .crosshair { cursor: crosshair; } .text { cursor: text; } .pointer { cursor: pointer; }
+      button { font: inherit; padding: 8px 14px; margin: 6px 6px 0 0; cursor: default; }
+      ol { line-height: 1.7; }
+    </style>
+  </head>
+  <body>
+    <script>
+      const { ipcRenderer } = require('electron');
+      const kind = new URLSearchParams(location.search).get('child');
+      if (kind == null) {
+        document.body.className = 'parent';
+        document.body.innerHTML = `
+          <h2>Parent window (Electron ${process.versions.electron}, Chromium ${process.versions.chrome})</h2>
+          <ol>
+            <li>Open a child below.</li>
+            <li>Move the pointer over one of the child's cursor areas (or, for the frameless child, over its edge so the resize cursor shows).</li>
+            <li>Move the pointer back over this parent window and around it.</li>
+          </ol>
+          <p><b>Expected:</b> the normal arrow over the parent. <b>Actual with a modal child:</b> the parent keeps showing the child's last cursor until the child closes.</p>
+          <button onclick="ipcRenderer.send('open-child', 'modal')">Open modal child</button>
+          <button onclick="ipcRenderer.send('open-child', 'frameless-modal')">Open frameless, resizable modal child</button>
+          <button onclick="ipcRenderer.send('open-child', 'non-modal')">Open non-modal child (control)</button>
+          <button onclick="ipcRenderer.send('open-child', 'frameless-non-modal')">Open frameless, resizable non-modal child (control)</button>`;
+      } else {
+        document.body.className = 'child';
+        document.body.innerHTML = `
+          <div><b>${kind} child</b>: hover an area, then move the pointer onto the parent.</div>
+          <div class="zone crosshair">cursor: crosshair</div>
+          <div class="zone text">cursor: text</div>
+          <div class="zone pointer">cursor: pointer</div>
+          <div><button onclick="window.close()">Close child</button></div>`;
+      }
+    </script>
+  </body>
+</html>
