@@ -1,6 +1,6 @@
 # Electron: modal parent keeps the child's cursor (Linux)
 
-Minimal reproduction for an Electron bug on Linux: while a modal child window is open, its disabled parent keeps showing whatever cursor the child set last (a crosshair, a text I-beam, or a resize cursor from a frameless child's edge) instead of its own cursor.
+Minimal reproduction for [electron/electron#54833](https://github.com/electron/electron/issues/54833), an Electron bug on Linux: while a modal child window is open, its disabled parent keeps showing whatever cursor the child set last (a crosshair, a text I-beam, or a resize cursor from a frameless child's edge) instead of its own cursor.
 
 ## Run
 
