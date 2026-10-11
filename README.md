@@ -24,7 +24,7 @@ npm start
 
 Ubuntu 22.04.5, GNOME Shell 42.9, X11, Electron 43.7.3:
 
-SCREENCAST_PLACEHOLDER
+https://github.com/user-attachments/assets/bbb48c75-903e-4025-ac36-919c68833bbc
 
 ## Versions
 
